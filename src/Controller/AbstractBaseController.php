@@ -35,16 +35,6 @@ class AbstractBaseController
     }
 
     /**
-     * @param string $name
-     *
-     * @return mixed
-     */
-    protected function get(string $name)
-    {
-        return $this->container->get($name);
-    }
-
-    /**
      * @param ResponseInterface $response
      * @param array $data
      * @param int $options
@@ -60,6 +50,16 @@ class AbstractBaseController
         }
 
         return $responder->json($response, $data, $options);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return mixed
+     */
+    protected function get(string $name)
+    {
+        return $this->container->get($name);
     }
 
     /**
