@@ -1,0 +1,40 @@
+{% extends "layout/layout.twig" %}
+
+{% block content %}
+
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Users</h1>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Firstname</th>
+                        <th scope="col">Lastname</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col">Updated At</th>
+                        <th scope="col">Deleted At</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for key, user in users  %}
+                       <tr>
+                           {% for k, v in user  %}
+                               <td>{{ v }}</td>
+                           {% endfor %}
+                       </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
