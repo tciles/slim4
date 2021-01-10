@@ -1,6 +1,8 @@
 <?php
 
 use App\Factory\LoggerFactory;
+use App\Repository\UserRepository;
+use App\Service\UserService;
 use App\Service\VersionService;
 use Odan\Session\PhpSession;
 use Odan\Session\SessionInterface;
@@ -137,5 +139,13 @@ return [
 
     VersionService::class => function (ContainerInterface $container) {
         return new VersionService();
+    },
+
+    UserRepository::class => function (ContainerInterface $container) {
+        return new UserRepository($container->get(PDO::class));
+    },
+
+    UserService::class => function (ContainerInterface $container) {
+        return new UserService($container->get(UserRepository::class));
     },
 ];
