@@ -1,22 +1,24 @@
 <?php
 
+use App\Factory\LoggerFactory;
+use App\Service\VersionService;
+use Odan\Session\PhpSession;
+use Odan\Session\SessionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use Odan\Session\PhpSession;
-use Odan\Session\SessionInterface;
 use Slim\App;
-use Slim\Interfaces\RouteParserInterface;
 use Slim\Factory\AppFactory;
+use Slim\Interfaces\RouteParserInterface;
 use Slim\Middleware\ErrorMiddleware;
+use Slim\Psr7\Factory\StreamFactory;
+use Slim\Psr7\Factory\UriFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use Slim\Views\TwigMiddleware;
 use Slim\Views\TwigRuntimeLoader;
 use Twig\Loader\FilesystemLoader;
 use Twig\TwigFunction;
-use App\Factory\LoggerFactory;
-use App\Service\VersionService;
 
 return [
     'settings' => function () {
@@ -121,7 +123,7 @@ return [
 
     PDO::class => function (ContainerInterface $container) {
         $settings = $container->get('settings')['db'];
-    
+
         $host = $settings['host'];
         $dbname = $settings['database'];
         $username = $settings['username'];
@@ -129,9 +131,9 @@ return [
         $charset = $settings['charset'];
         $flags = $settings['flags'];
         $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
-    
+
         return new PDO($dsn, $username, $password, $flags);
-    },    
+    },
 
     VersionService::class => function (ContainerInterface $container) {
         return new VersionService();

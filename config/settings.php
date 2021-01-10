@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Logger;
+
 // Error reporting for production
 error_reporting(0);
 ini_set('display_errors', '0');
@@ -22,7 +24,6 @@ $settings['view'] = [
 
 // Error Handling Middleware settings
 $settings['error'] = [
-
     // Should be set to false in production
     'display_error_details' => true,
 
@@ -35,12 +36,11 @@ $settings['error'] = [
     'log_error_details' => true,
 ];
 
-
 $settings['logger'] = [
     'name' => 'app',
     'path' => $settings['temp'] . '/logs',
     'filename' => 'app.log',
-    'level' => \Monolog\Logger::DEBUG,
+    'level' => Logger::DEBUG,
     'file_permission' => 0775,
 ];
 
@@ -65,7 +65,6 @@ $settings['session'] = [
     'cache_expire' => 0,
 ];
 
-
 $settings['db'] = [
     'driver' => 'mysql',
     'host' => 'mysql',
@@ -84,7 +83,7 @@ $settings['db'] = [
         // Set default fetch mode to array
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         // Set character set
-        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci'
+        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci',
     ],
 ];
 

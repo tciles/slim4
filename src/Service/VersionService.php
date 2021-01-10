@@ -2,11 +2,16 @@
 
 namespace App\Service;
 
-class VersionService {
-
-    public function getVersion()
+/**
+ * Class VersionService.
+ */
+class VersionService
+{
+    /**
+     * @return string
+     */
+    public function getVersion(): string
     {
         return 'v1';
     }
-
 }

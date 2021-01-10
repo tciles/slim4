@@ -7,6 +7,9 @@ use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Views\Twig;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use function http_build_query;
 
 /**
@@ -17,17 +20,17 @@ final class Responder
     /**
      * @var Twig
      */
-    private $twig;
+    private Twig $twig;
 
     /**
      * @var RouteParserInterface
      */
-    private $routeParser;
+    private RouteParserInterface $routeParser;
 
     /**
      * @var ResponseFactoryInterface
      */
-    private $responseFactory;
+    private ResponseFactoryInterface $responseFactory;
 
     /**
      * The constructor.
@@ -62,6 +65,10 @@ final class Responder
      * @param ResponseInterface $response The response
      * @param string $template Template pathname relative to templates directory
      * @param array $data Associative array of template variables
+     *
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      *
      * @return ResponseInterface The response
      */
