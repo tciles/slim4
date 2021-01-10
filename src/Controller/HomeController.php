@@ -12,14 +12,19 @@ use Psr\Http\Message\ServerRequestInterface;
 class HomeController extends AbstractBaseController
 {
     /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param array $args
+     * HomePage.
+     *
+     * @param ServerRequestInterface $request  The request.
+     * @param ResponseInterface      $response The response.
+     * @param array                  $args     Arguments.
      *
      * @return ResponseInterface
      */
-    public function home(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
-    {
+    public function home(
+        ServerRequestInterface $request,
+        ResponseInterface $response,
+        array $args = []
+    ): ResponseInterface {
         $versionService = $this->get(VersionService::class);
 
         $viewData = [
@@ -27,22 +32,34 @@ class HomeController extends AbstractBaseController
             'version' => $versionService->getVersion(),
         ];
 
-        return $this->render($response, 'home/home.twig', $viewData);
+        $response = $this->render($response, 'home/home.twig', $viewData);
+
+        return $response;
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param array $args
+     * Get the version.
+     *
+     * @param ServerRequestInterface $request  The request.
+     * @param ResponseInterface      $response The response.
+     * @param array                  $args     Arguments.
      *
      * @return ResponseInterface
      */
-    public function version(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
-    {
+    public function version(
+        ServerRequestInterface $request,
+        ResponseInterface $response,
+        array $args = []
+    ): ResponseInterface {
         $versionService = $this->get(VersionService::class);
 
-        return $this->json($response, [
-            'version' => $versionService->getVersion(),
-        ]);
+        $response = $this->json(
+            $response,
+            [
+                'version' => $versionService->getVersion(),
+            ]
+        );
+
+        return $response;
     }
 }

@@ -66,15 +66,37 @@ final class Responder
      * @param string $template Template pathname relative to templates directory
      * @param array $data Associative array of template variables
      *
-     * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
+     * @throws LoaderError
      *
      * @return ResponseInterface The response
      */
     public function render(ResponseInterface $response, string $template, array $data = []): ResponseInterface
     {
         return $this->twig->render($response, $template, $data);
+    }
+
+    /**
+     * Creates a redirect for the given url / route name.
+     *
+     * This method prepares the response object to return an HTTP Redirect
+     * response to the client.
+     *
+     * @param ResponseInterface $response The response
+     * @param string $routeName The redirect route name
+     * @param array<mixed> $data Named argument replacement data
+     * @param array<mixed> $queryParams Optional query string parameters
+     *
+     * @return ResponseInterface The response
+     */
+    public function redirectFor(
+        ResponseInterface $response,
+        string $routeName,
+        array $data = [],
+        array $queryParams = []
+    ): ResponseInterface {
+        return $this->redirect($response, $this->routeParser->urlFor($routeName, $data, $queryParams));
     }
 
     /**
@@ -99,28 +121,6 @@ final class Responder
         }
 
         return $response->withStatus(302)->withHeader('Location', $destination);
-    }
-
-    /**
-     * Creates a redirect for the given url / route name.
-     *
-     * This method prepares the response object to return an HTTP Redirect
-     * response to the client.
-     *
-     * @param ResponseInterface $response The response
-     * @param string $routeName The redirect route name
-     * @param array<mixed> $data Named argument replacement data
-     * @param array<mixed> $queryParams Optional query string parameters
-     *
-     * @return ResponseInterface The response
-     */
-    public function redirectFor(
-        ResponseInterface $response,
-        string $routeName,
-        array $data = [],
-        array $queryParams = []
-    ): ResponseInterface {
-        return $this->redirect($response, $this->routeParser->urlFor($routeName, $data, $queryParams));
     }
 
     /**
