@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Logger;
+
 // Error reporting for production
 error_reporting(0);
 ini_set('display_errors', '0');
@@ -40,7 +42,7 @@ $settings['logger'] = [
     'name' => 'app',
     'path' => $settings['temp'] . '/logs',
     'filename' => 'app.log',
-    'level' => \Monolog\Logger::DEBUG,
+    'level' => Logger::DEBUG,
     'file_permission' => 0775,
 ];
 

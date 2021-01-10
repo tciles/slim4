@@ -9,6 +9,8 @@ use Slim\App;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Factory\AppFactory;
 use Slim\Middleware\ErrorMiddleware;
+use Slim\Psr7\Factory\StreamFactory;
+use Slim\Psr7\Factory\UriFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use Slim\Views\TwigMiddleware;
@@ -121,7 +123,7 @@ return [
 
     PDO::class => function (ContainerInterface $container) {
         $settings = $container->get('settings')['db'];
-    
+
         $host = $settings['host'];
         $dbname = $settings['database'];
         $username = $settings['username'];
@@ -129,9 +131,9 @@ return [
         $charset = $settings['charset'];
         $flags = $settings['flags'];
         $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
-    
+
         return new PDO($dsn, $username, $password, $flags);
-    },    
+    },
 
     VersionService::class => function (ContainerInterface $container) {
         return new VersionService();

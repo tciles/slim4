@@ -6,25 +6,52 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use App\Responder\Responder;
 
-class AbstractBaseController {
-    private $container;
+/**
+ * Class AbstractBaseController
+ * @package App\Controller
+ */
+class AbstractBaseController
+{
+    /**
+     * @var ContainerInterface
+     */
+    private ContainerInterface $container;
 
+    /**
+     * AbstractBaseController constructor.
+     * @param ContainerInterface $container
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    protected function getContainer()
+    /**
+     * @return ContainerInterface
+     */
+    protected function getContainer(): ContainerInterface
     {
         return $this->container;
     }
 
-    protected function get($name) 
+    /**
+     * @param string $name
+     *
+     * @return mixed
+     */
+    protected function get(string $name)
     {
         return $this->container->get($name);
     }
 
-    protected function json(ResponseInterface $response, array $data = [], $options = 0) 
+    /**
+     * @param ResponseInterface $response
+     * @param array $data
+     * @param int $options
+     *
+     * @return ResponseInterface
+     */
+    protected function json(ResponseInterface $response, array $data = [], $options = 0): ResponseInterface
     {
         $responder = $this->get(Responder::class);
 
@@ -35,7 +62,14 @@ class AbstractBaseController {
         return $responder->json($response, $data, $options);
     }
 
-    protected function render(ResponseInterface $response, $template, array $viewData = [])
+    /**
+     * @param ResponseInterface $response
+     * @param $template
+     * @param array $viewData
+     *
+     * @return ResponseInterface
+     */
+    protected function render(ResponseInterface $response, $template, array $viewData = []): ResponseInterface
     {
         $responder = $this->get(Responder::class);
 

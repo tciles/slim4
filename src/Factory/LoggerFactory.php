@@ -16,12 +16,17 @@ final class LoggerFactory
     /**
      * @var string
      */
-    private $path;
+    private string $path;
 
     /**
      * @var int
      */
-    private $level;
+    private int $level;
+
+    /**
+     * @var array Handler
+     */
+    private array $handler = [];
 
     /**
      * The constructor.
@@ -33,11 +38,6 @@ final class LoggerFactory
         $this->path = (string)$settings['path'];
         $this->level = (int)$settings['level'];
     }
-
-    /**
-     * @var array Handler
-     */
-    private $handler = [];
 
     /**
      * Build the logger.
@@ -72,7 +72,7 @@ final class LoggerFactory
         $filename = sprintf('%s/%s', $this->path, $filename);
 
         $rotatingFileHandler = new RotatingFileHandler(
-            $filename, 
+            $filename,
             0,
             $level ?? $this->level,
             true,
