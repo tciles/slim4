@@ -43,8 +43,7 @@ final class Responder
         Twig $twig,
         RouteParserInterface $routeParser,
         ResponseFactoryInterface $responseFactory
-    )
-    {
+    ) {
         $this->twig = $twig;
         $this->responseFactory = $responseFactory;
         $this->routeParser = $routeParser;
@@ -67,11 +66,11 @@ final class Responder
      * @param string $template Template pathname relative to templates directory
      * @param array $data Associative array of template variables
      *
-     * @return ResponseInterface The response
-     *
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
+     *
+     * @return ResponseInterface The response
      */
     public function render(ResponseInterface $response, string $template, array $data = []): ResponseInterface
     {
@@ -94,8 +93,7 @@ final class Responder
         ResponseInterface $response,
         string $destination,
         array $queryParams = []
-    ): ResponseInterface
-    {
+    ): ResponseInterface {
         if ($queryParams) {
             $destination = sprintf('%s?%s', $destination, http_build_query($queryParams));
         }
@@ -121,8 +119,7 @@ final class Responder
         string $routeName,
         array $data = [],
         array $queryParams = []
-    ): ResponseInterface
-    {
+    ): ResponseInterface {
         return $this->redirect($response, $this->routeParser->urlFor($routeName, $data, $queryParams));
     }
 
@@ -136,16 +133,15 @@ final class Responder
      * @param mixed $data The data
      * @param int $options Json encoding options
      *
-     * @return ResponseInterface The response
      * @throws JsonException
      *
+     * @return ResponseInterface The response
      */
     public function json(
         ResponseInterface $response,
         $data = null,
         int $options = 0
-    ): ResponseInterface
-    {
+    ): ResponseInterface {
         $response = $response->withHeader('Content-Type', 'application/json');
         $response->getBody()->write((string)json_encode($data, JSON_THROW_ON_ERROR | $options));
 

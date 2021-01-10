@@ -1,6 +1,6 @@
 <?php
 
-use \App\Controller\HomeController;
+use App\Controller\HomeController;
 use Slim\App;
 
 return function (App $app) {

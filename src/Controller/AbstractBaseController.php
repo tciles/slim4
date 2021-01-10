@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
+use App\Responder\Responder;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
-use App\Responder\Responder;
 
 /**
- * Class AbstractBaseController
- * @package App\Controller
+ * Class AbstractBaseController.
  */
 class AbstractBaseController
 {
@@ -19,6 +18,7 @@ class AbstractBaseController
 
     /**
      * AbstractBaseController constructor.
+     *
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
@@ -64,16 +64,15 @@ class AbstractBaseController
 
     /**
      * @param ResponseInterface $response
-     * @param $template
+     * @param string $template
      * @param array $viewData
      *
      * @return ResponseInterface
      */
-    protected function render(ResponseInterface $response, $template, array $viewData = []): ResponseInterface
+    protected function render(ResponseInterface $response, string $template, array $viewData = []): ResponseInterface
     {
         $responder = $this->get(Responder::class);
 
         return $responder->render($response, $template, $viewData);
     }
 }
-

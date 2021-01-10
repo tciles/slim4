@@ -1,13 +1,15 @@
 <?php
 
+use App\Factory\LoggerFactory;
+use App\Service\VersionService;
+use Odan\Session\PhpSession;
+use Odan\Session\SessionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use Odan\Session\PhpSession;
-use Odan\Session\SessionInterface;
 use Slim\App;
-use Slim\Interfaces\RouteParserInterface;
 use Slim\Factory\AppFactory;
+use Slim\Interfaces\RouteParserInterface;
 use Slim\Middleware\ErrorMiddleware;
 use Slim\Psr7\Factory\StreamFactory;
 use Slim\Psr7\Factory\UriFactory;
@@ -17,8 +19,6 @@ use Slim\Views\TwigMiddleware;
 use Slim\Views\TwigRuntimeLoader;
 use Twig\Loader\FilesystemLoader;
 use Twig\TwigFunction;
-use App\Factory\LoggerFactory;
-use App\Service\VersionService;
 
 return [
     'settings' => function () {

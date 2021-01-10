@@ -1,7 +1,7 @@
 <?php
 
-use Slim\App;
 use App\Factory\LoggerFactory;
+use Slim\App;
 
 return function (App $app) {
     // Parse json, form data and xml
