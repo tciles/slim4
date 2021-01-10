@@ -24,10 +24,15 @@ class AbstractBaseController {
         return $this->container->get($name);
     }
 
-    protected function json(ResponseInterface $response, $data, $options = 0) {
+    protected function json(ResponseInterface $response, array $data = [], $options = 0) 
+    {
         $responder = $this->get(Responder::class);
 
-        return $responder->json($response, ['data' => $data], $options);
+        if (!isset($data['data'])) {
+            $data = ['data' => $data];
+        }
+
+        return $responder->json($response, $data, $options);
     }
 
     protected function render(ResponseInterface $response, $template, array $viewData = [])
